@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Special Valentine ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ff0844, #ffb199);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      color: white;
+      text-align: center;
+    }
+
+    .container {
+      background: rgba(0,0,0,0.35);
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.4);
+      animation: fadeIn 1.5s ease;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 20px;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 12px 25px;
+      margin: 10px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #yesBtn {
+      background-color: #00c853;
+      color: white;
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.1);
+      background-color: #00e676;
+    }
+
+    #noBtn {
+      background-color: #d50000;
+      color: white;
+      position: relative;
+    }
+
+    #message {
+      font-size: 26px;
+      margin-top: 20px;
+      display: none;
+      animation: fadeIn 1s ease;
+    }
+
+    .heart {
+      position: absolute;
+      color: red;
+      animation: float 5s linear infinite;
+      font-size: 24px;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh); opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1 id="question">Will you be my Valentine? ❤️</h1>
+
+    <p>Enter your name first:</p>
+    <input type="text" id="nameInput" placeholder="Your name">
+
+    <br>
+
+    <button id="yesBtn">YES ❤️</button>
+    <button id="noBtn">NO 💔</button>
+
+    <div id="message"></div>
+  </div>
+
+  <audio id="music" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const message = document.getElementById("message");
+    const nameInput = document.getElementById("nameInput");
+    const music = document.getElementById("music");
+
+    // floating hearts
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.fontSize = (Math.random() * 20 + 20) + "px";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 5000);
+    }
+
+    setInterval(createHeart, 300);
+
+    // YES button
+    yesBtn.onclick = function() {
+      const name = nameInput.value || "My Love";
+
+      music.play();
+
+      message.style.display = "block";
+      message.innerHTML = `❤️ ${name}, you just made me the happiest person alive! ❤️`;
+
+      // WhatsApp redirect after 3 seconds
+      setTimeout(() => {
+        const text = encodeURIComponent(`${name} said YES to be my Valentine ❤️`);
+        window.open(`https://wa.me/?text=${text}`, '_blank');
+      }, 3000);
+    }
+
+    // NO button runs away
+    noBtn.onmouseover = function() {
+      const x = Math.random() * 400 - 200;
+      const y = Math.random() * 400 - 200;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    noBtn.onclick = function() {
+      alert("GOT NO OPTION BABY, JUST SAY YES 😘");
+    }
+
+  </script>
+
+</body>
+</html>
